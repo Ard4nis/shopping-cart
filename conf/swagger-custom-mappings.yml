@@ -1,0 +1,5 @@
+---
+  - type: java.util.UUID
+    specAsParameter:
+      - type: string
+        format: uuid

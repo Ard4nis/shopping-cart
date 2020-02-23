@@ -13,10 +13,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ShoppingController @Inject()(shoppingService: ShoppingService, registry: CollectorRegistry, cc: ControllerComponents)(implicit ex: ExecutionContext) extends AbstractController(cc) with Logging {
 
-  def getTestPage = Action.async {
-    Future.successful(Ok("This will be the page where you can test stuff..."))
-  }
-
   def openBasket = Action.async {
     shoppingService.openBasket().map { id =>
       logger.info(s"Basket opened with identifier: $id")

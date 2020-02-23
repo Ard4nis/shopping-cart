@@ -1,20 +1,123 @@
-
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+ ###
+ #  summary: Get the status of the service
+ #  tags:
+ #    - Informational Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        application/json:
+ #          schema:
+ #           type: object
+ #           properties:
+ #            status:
+ #             type: string
+ #             description: The status
+ ###
 GET     /health                                             controllers.info.HealthController.health()
+
+ ###
+ #  summary: Get the metrics of the service
+ #  tags:
+ #    - Informational Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          description: The metrics used for Prometheus and tracking
+ ###
 GET     /metrics                                            controllers.info.MetricsController.metrics()
 
-# Map static resources from the /public folder to the /assets URL path
+### NoDocs ###
+GET     /                                                   controllers.documentation.SwaggerController.redirectToSwagger
+
+### NoDocs ###
+GET     /docs/swagger-ui/*file            controllers.Assets.at(path: String = "/public/lib/swagger-ui", file: String)
+
+### NoDocs ###
 GET     /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
 
-GET     /                                                   controllers.ShoppingController.getTestPage
-
-# Basket operations
+ ###
+ #  summary: Opens a basket
+ #  tags:
+ #    - Basket Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          schema:
+ #            $ref: '#/components/schemas/models.Basket'
+ #  security:
+ #      - basicAuth: []
+ ###
 GET     /basket/open                                        controllers.ShoppingController.openBasket
 
+ ###
+ #  summary: Gets the content of a basket
+ #  tags:
+ #    - Basket Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          schema:
+ #            $ref: '#/components/schemas/models.Basket'
+ #  security:
+ #      - basicAuth: []
+ ###
 GET     /basket/:basketId                                   controllers.ShoppingController.getBasket(basketId: java.util.UUID)
+
+ ###
+ #  summary: Adds a product to a basket
+ #  tags:
+ #    - Basket Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          schema:
+ #            $ref: '#/components/schemas/models.Basket'
+ #  security:
+ #      - basicAuth: []
+ ###
 PUT     /basket/:basketId/product/:productId                controllers.ShoppingController.addToBasket(basketId: java.util.UUID, productId: java.util.UUID, amount: Int ?= 1)
+
+ ###
+ #  summary: Removes a product from a basket
+ #  tags:
+ #    - Basket Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          schema:
+ #            $ref: '#/components/schemas/models.Basket'
+ #  security:
+ #      - basicAuth: []
+ ###
 DELETE  /basket/:basketId/product/:productId                controllers.ShoppingController.removeFromBasket(basketId: java.util.UUID, productId: java.util.UUID)
+
+ ###
+ #  summary: Increases the amount of a product in a basket
+ #  tags:
+ #    - Basket Operations
+ #  responses:
+ #    200:
+ #      description: success
+ #      content:
+ #        text/plain:
+ #          schema:
+ #            $ref: '#/components/schemas/models.Basket'
+ #  security:
+ #      - basicAuth: []
+ ###
 PUT     /basket/:basketId/product/:productId/increase       controllers.ShoppingController.increaseAmount(basketId: java.util.UUID, productId: java.util.UUID, amount: Int ?= 1)

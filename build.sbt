@@ -2,7 +2,7 @@ name := "ShoppingCart"
  
 version := "1.0-SNAPSHOT"
       
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala, SwaggerPlugin)
 
 scalaVersion := "2.12.2"
 val playVersion = "2.7.3"
@@ -19,13 +19,14 @@ libraryDependencies ++= Seq(
   "ch.qos.logback.contrib" % "logback-json-classic" % "0.1.5",
   "io.prometheus" % "simpleclient_servlet" % "0.7.0",
   "org.postgresql" % "postgresql" % "42.2.5",
-  // Test dependencies
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
-  "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % Test,
-  "com.miguno.akka" %% "akka-mock-scheduler" % "0.5.4" % Test
+  "org.webjars" % "swagger-ui" % "3.25.0"
 )
 
 
 resolvers ++= Seq(
   "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/",
 )
+
+swaggerDomainNameSpaces := Seq("models")
+swaggerPrettyJson := true
+swaggerV3 := true
