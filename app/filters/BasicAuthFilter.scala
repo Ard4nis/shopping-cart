@@ -17,7 +17,7 @@ class BasicAuthFilter @Inject()(implicit val basicAuthRepo: BasicAuthRepo,
 
   private val authHeaderPrefix = "basic"
 
-  private val blacklistedUris = Seq("/logging", "/health", "/")
+  private val blacklistedUris = Seq("/metrics", "/health")
   private val realm = "shopping-cart"
   private lazy val unauthorized = Results.Unauthorized("{\"message\": \"unauthorized\"}")
     .withHeaders(("WWW-Authenticate", s"Basic realm=$realm")).as("application/json")

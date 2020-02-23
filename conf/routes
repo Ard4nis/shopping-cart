@@ -16,7 +16,6 @@
  #           properties:
  #            status:
  #             type: string
- #             description: The status
  ###
 GET     /health                                             controllers.info.HealthController.health()
 
@@ -27,9 +26,6 @@ GET     /health                                             controllers.info.Hea
  #  responses:
  #    200:
  #      description: success
- #      content:
- #        text/plain:
- #          description: The metrics used for Prometheus and tracking
  ###
 GET     /metrics                                            controllers.info.MetricsController.metrics()
 
@@ -50,9 +46,13 @@ GET     /assets/*file                                       controllers.Assets.v
  #    200:
  #      description: success
  #      content:
- #        text/plain:
+ #        application/json:
  #          schema:
- #            $ref: '#/components/schemas/models.Basket'
+ #           type: object
+ #           properties:
+ #            basket_id:
+ #             type: string
+ #             format: UUID
  #  security:
  #      - basicAuth: []
  ###
@@ -66,7 +66,7 @@ GET     /basket/open                                        controllers.Shopping
  #    200:
  #      description: success
  #      content:
- #        text/plain:
+ #        application/json:
  #          schema:
  #            $ref: '#/components/schemas/models.Basket'
  #  security:
@@ -79,12 +79,8 @@ GET     /basket/:basketId                                   controllers.Shopping
  #  tags:
  #    - Basket Operations
  #  responses:
- #    200:
+ #    204:
  #      description: success
- #      content:
- #        text/plain:
- #          schema:
- #            $ref: '#/components/schemas/models.Basket'
  #  security:
  #      - basicAuth: []
  ###
@@ -95,12 +91,8 @@ PUT     /basket/:basketId/product/:productId                controllers.Shopping
  #  tags:
  #    - Basket Operations
  #  responses:
- #    200:
+ #    204:
  #      description: success
- #      content:
- #        text/plain:
- #          schema:
- #            $ref: '#/components/schemas/models.Basket'
  #  security:
  #      - basicAuth: []
  ###
@@ -111,12 +103,8 @@ DELETE  /basket/:basketId/product/:productId                controllers.Shopping
  #  tags:
  #    - Basket Operations
  #  responses:
- #    200:
+  #    204:
  #      description: success
- #      content:
- #        text/plain:
- #          schema:
- #            $ref: '#/components/schemas/models.Basket'
  #  security:
  #      - basicAuth: []
  ###

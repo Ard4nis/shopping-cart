@@ -2,4 +2,6 @@
   - type: java.util.UUID
     specAsParameter:
       - type: string
-        format: uuid
+    specAsProperty:
+      type: string
+      format: UUID

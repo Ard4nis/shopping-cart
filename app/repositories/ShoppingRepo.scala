@@ -114,7 +114,7 @@ class PostgresShoppingRepo @Inject()(db: Database, registry: CollectorRegistry)(
 
   override def getBasket(basketId: UUID): Future[Basket] = timeExternal("db", "get_basket", Future {
     db.withConnection { conn =>
-      val stmt = conn.prepareStatement(s"SELECT name, description, value, amount FROM product, cart_to_product WHERE product_id = id AND cart_id = ?")
+      val stmt = conn.prepareStatement(s"SELECT product_id, name, description, value, amount FROM product, cart_to_product WHERE product_id = id AND cart_id = ?")
 
       stmt.setObject(1, basketId)
 

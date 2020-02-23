@@ -16,7 +16,7 @@ class ShoppingController @Inject()(shoppingService: ShoppingService, registry: C
   def openBasket = Action.async {
     shoppingService.openBasket().map { id =>
       logger.info(s"Basket opened with identifier: $id")
-      Ok(Json.toJson(id))
+      Ok(Json.toJson(Map("basket_id" -> id)))
     }.recover {
       case t: Throwable =>
         val errorMsg = s"Unexpected error occurred, message: ${t.getMessage}"
