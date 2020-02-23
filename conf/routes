@@ -1,0 +1,20 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /health                                             controllers.info.HealthController.health()
+GET     /metrics                                            controllers.info.MetricsController.metrics()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                                       controllers.Assets.versioned(path="/public", file: Asset)
+
+GET     /                                                   controllers.ShoppingController.getTestPage
+
+# Basket operations
+GET     /basket/open                                        controllers.ShoppingController.openBasket
+
+GET     /basket/:basketId                                   controllers.ShoppingController.getBasket(basketId: java.util.UUID)
+PUT     /basket/:basketId/product/:productId                controllers.ShoppingController.addToBasket(basketId: java.util.UUID, productId: java.util.UUID, amount: Int ?= 1)
+DELETE  /basket/:basketId/product/:productId                controllers.ShoppingController.removeFromBasket(basketId: java.util.UUID, productId: java.util.UUID)
+PUT     /basket/:basketId/product/:productId/increase       controllers.ShoppingController.increaseAmount(basketId: java.util.UUID, productId: java.util.UUID, amount: Int ?= 1)
